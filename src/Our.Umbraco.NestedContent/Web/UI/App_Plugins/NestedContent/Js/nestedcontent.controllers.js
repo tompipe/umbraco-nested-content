@@ -200,15 +200,7 @@ angular.module("umbraco").controller("Our.Umbraco.NestedContent.Controllers.Nest
                 var contentType = $scope.getContentTypeConfig($scope.model.value[idx].ncContentTypeAlias);
 
                 if (contentType != null && contentType.nameExp) {
-                    var item = $scope.model.value[idx]; // Run it against the stored dictionary value, NOT the node object
-
-                    if (contentType.nameTemplate.indexOf("{{index}}") !== -1) {
-                        var cloneItem = JSON.parse(JSON.stringify(item));
-                        cloneItem.index = (idx + 1); // inject the index position to the object
-                        item = cloneItem;
-                    }
-
-                    var newName = contentType.nameExp(item);
+                    var newName = contentType.nameExp($scope.model.value[idx]); // Run it against the stored dictionary value, NOT the node object
                     if (newName && (newName = $.trim(newName))) {
                         name = newName;
                     }
